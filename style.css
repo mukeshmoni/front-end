@@ -47,7 +47,9 @@ h1 {
   height: auto; /* Adjust height automatically based on image aspect ratio */
   object-fit: contain; /* Ensure image is contained within the space */
   max-height: 250px; /* Limit max height of the image */
-  border-bottom: 2px solid #007bff; /* Blue border at the bottom */
+  border: 3px solid #007bff; /* Border around the image */
+  border-radius: 10px; /* Add slight rounding to the image border */
+  margin-bottom: 10px; /* Space between image and text */
 }
 
 .card-body {
