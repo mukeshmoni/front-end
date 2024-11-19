@@ -42,7 +42,38 @@
         </div>
       </div>
     </div>
+    <div class="container">
+      <!-- Cart Icon -->
+      <div class="cart-icon-container">
+        <button id="cartIcon" class="btn btn-secondary">
+          <i class="fa fa-shopping-cart"></i> Cart (<span id="cartCount">0</span>)
+        </button>
+      </div>
+    
+      <!-- Product Grid
+      <div id="productGrid" class="row"></div>
+    
+      <!-- Cart Container -->
+      <div id="cartContainer" class="cart-container" style="display: none;">
+        <h3>Your Cart</h3>
+        <div id="cartGrid" class="row"></div>
+      </div>
+    </div> -->
 
+    <div class="container">
+      <!-- Cart Icon -->
+      <div class="cart-icon-container">
+        <button id="cartIcon" class="btn btn-secondary">
+          <i class="fa fa-shopping-cart"></i> Cart (<span id="cartCount">0</span>)
+        </button>
+        <button id="viewCart" class="btn btn-primary">View Cart</button>
+      </div>
+    
+      <!-- Product Grid -->
+      <div id="productGrid" class="row"></div>
+    </div>
+    
+    
     <!-- Product Grid -->
     <div class="row row-cols-1 row-cols-md-4" id="productGrid"></div>
 
@@ -51,5 +82,8 @@
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
   <script src="script.js"></script>
+
+
+
 </body>
 </html>
