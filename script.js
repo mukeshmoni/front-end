@@ -1,4 +1,10 @@
-// Products data
+// Select DOM elements
+const sortSelect = document.getElementById('sortSelect'); // Sort dropdown
+const filterPriceCheckbox = document.getElementById('filterPriceCheckbox'); // Price filter checkbox
+const filterNewCheckbox = document.getElementById('filterNewCheckbox'); // New arrivals filter checkbox
+const productGrid = document.getElementById('productGrid'); // Product grid container
+
+
 const products = [
   { id: 1, name: 'Product 1', description: 'Description for product 1. High-quality item.', price: 25.99, image: 'assets/images/product1.png', isNew: true },
   { id: 2, name: 'Product 2', description: 'Description for product 2. High-quality item.', price: 45.00, image: 'assets/images/product2.png', isNew: false },
@@ -44,86 +50,114 @@ const products = [
   // { id: 40, name: 'Product 40', description: 'Description for product 40. High-quality item.', price: 105.75, image: 'assets/images/product40.png', isNew: false }
 ];
 
-// Cart storage
-let cart = [];
 
-// Function to display products
+// function displayProducts(productsToDisplay) {
+//   productGrid.innerHTML = '';
+//   productsToDisplay.forEach(product => {
+//     const card = document.createElement('div');
+//     card.classList.add('col-6', 'col-md-3'); // 4 columns on medium screens, 2 on small screens
+
+//     card.innerHTML = `
+//       <div class="card">
+//         <img src="${product.image}" alt="${product.name}">
+//         <div class="card-body">
+//           <h5 class="card-title">${product.name}</h5>
+//           <p class="card-text">${product.description}</p>
+//           <p class="card-price">₹${product.price.toFixed(2)}</p> <!-- Changed to ₹ symbol -->
+//         </div>
+        
+//          <button class="buy-now">Add To kart</button>
+//       </div>
+//     `;
+
+//     productGrid.appendChild(card);
+//   });
+// }
+
+// function applyFiltersAndSort() {
+//   let filteredProducts = [...products];
+
+//   // Apply filters
+//   if (filterPriceCheckbox.checked) {
+//     filteredProducts = filteredProducts.filter(product => product.price < 50);
+//   }
+//   if (filterNewCheckbox.checked) {
+//     filteredProducts = filteredProducts.filter(product => product.isNew);
+//   }
+
+//   // Apply sorting
+//   const sortOption = sortSelect.value;
+//   if (sortOption === 'priceLow') {
+//     filteredProducts.sort((a, b) => parseFloat(a.price) - parseFloat(b.price)); // Ensure numeric comparison
+//   } else if (sortOption === 'priceHigh') {
+//     filteredProducts.sort((a, b) => parseFloat(b.price) - parseFloat(a.price)); // Ensure numeric comparison
+//   } else if (sortOption === 'newest') {
+//     filteredProducts.sort((a, b) => b.id - a.id); // Ensure `id` represents recency
+//   }
+
+//   displayProducts(filteredProducts);
+// }
+
+// // Ensure the initial sortSelect value works
+// applyFiltersAndSort();
+
+// // Event listeners for filters and sort
+// sortSelect.addEventListener('change', applyFiltersAndSort);
+// filterPriceCheckbox.addEventListener('change', applyFiltersAndSort);
+// filterNewCheckbox.addEventListener('change', applyFiltersAndSort);
+// Function to display products in the grid
+// Function to display products in the grid
 function displayProducts(productsToDisplay) {
-  const productGrid = document.getElementById('productGrid');
-  productGrid.innerHTML = ''; // Clear the product grid
-
-  productsToDisplay.forEach((product) => {
+  productGrid.innerHTML = ''; // Clear the grid
+  productsToDisplay.forEach(product => {
     const card = document.createElement('div');
-    card.classList.add('col-6', 'col-md-3');
+    card.classList.add('col-6', 'col-md-3'); // 4 columns on medium screens, 2 on small screens
 
     card.innerHTML = `
       <div class="card">
-        <img src="${product.image}" alt="${product.name}" class="card-img-top">
+        <img src="${product.image}" alt="${product.name}">
         <div class="card-body">
           <h5 class="card-title">${product.name}</h5>
           <p class="card-text">${product.description}</p>
-          <p class="card-price">₹${product.price.toFixed(2)}</p>
-          <button class="btn btn-primary add-to-cart" data-id="${product.id}">Add to Cart</button>
+          <p class="card-price">₹${product.price.toFixed(2)}</p> <!-- Changed to ₹ symbol -->
         </div>
+        <button class="buy-now">Add To Kart</button>
       </div>
     `;
 
-    productGrid.appendChild(card);
-  });
-
-  // Attach event listeners to "Add to Cart" buttons
-  document.querySelectorAll('.add-to-cart').forEach((button) => {
-    button.addEventListener('click', (e) => addToCart(parseInt(e.target.dataset.id)));
+    productGrid.appendChild(card); // Add card to grid
   });
 }
 
-// Function to display cart items
-function displayCart() {
-  const cartContainer = document.getElementById('cartContainer');
-  const cartGrid = document.getElementById('cartGrid');
-  cartGrid.innerHTML = ''; // Clear previous cart items
+// Function to apply filters and sorting
+function applyFiltersAndSort() {
+  let filteredProducts = [...products]; // Copy the products array
 
-  cart.forEach((product) => {
-    const card = document.createElement('div');
-    card.classList.add('col-6', 'col-md-3');
-
-    card.innerHTML = `
-      <div class="card">
-        <img src="${product.image}" alt="${product.name}" class="card-img-top">
-        <div class="card-body">
-          <h5 class="card-title">${product.name}</h5>
-          <p class="card-price">₹${product.price.toFixed(2)}</p>
-        </div>
-      </div>
-    `;
-
-    cartGrid.appendChild(card);
-  });
-
-  // Show or hide cart container
-  cartContainer.style.display = cart.length > 0 ? 'block' : 'none';
-}
-
-// Add to Cart function
-function addToCart(productId) {
-  const product = products.find((p) => p.id === productId);
-  if (product) {
-    cart.push(product);
-    updateCartCount();
-    alert(`${product.name} added to the cart!`);
-  } else {
-    alert('Product not found!');
+  // Apply filters
+  if (filterPriceCheckbox.checked) {
+    filteredProducts = filteredProducts.filter(product => product.price < 50);
   }
-}
+  if (filterNewCheckbox.checked) {
+    filteredProducts = filteredProducts.filter(product => product.isNew);
+  }
 
-// Update cart count in the cart icon
-function updateCartCount() {
-  const cartCount = document.getElementById('cartCount');
-  cartCount.textContent = cart.length;
-}
+  // Apply sorting
+  const sortOption = sortSelect.value;
+  if (sortOption === 'priceLow') {
+    filteredProducts.sort((a, b) => parseFloat(a.price) - parseFloat(b.price)); // Low to high
+  } else if (sortOption === 'priceHigh') {
+    filteredProducts.sort((a, b) => parseFloat(b.price) - parseFloat(a.price)); // High to low
+  } else if (sortOption === 'newest') {
+    filteredProducts.sort((a, b) => b.id - a.id); // Newest first
+  }
 
-// Show cart items when cart icon is clicked
-document.getElementById('cartIcon').addEventListener('click', displayCart);
+  displayProducts(filteredProducts); // Display the filtered and sorted products
+}
 
 // Initial display of products
-displayProducts(products);
+applyFiltersAndSort();
+
+// Event listeners for filters and sort dropdown
+sortSelect.addEventListener('change', applyFiltersAndSort);
+filterPriceCheckbox.addEventListener('change', applyFiltersAndSort);
+filterNewCheckbox.addEventListener('change', applyFiltersAndSort);
