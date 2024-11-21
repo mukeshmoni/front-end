@@ -50,62 +50,6 @@ const products = [
   // { id: 40, name: 'Product 40', description: 'Description for product 40. High-quality item.', price: 105.75, image: 'assets/images/product40.png', isNew: false }
 ];
 
-
-// function displayProducts(productsToDisplay) {
-//   productGrid.innerHTML = '';
-//   productsToDisplay.forEach(product => {
-//     const card = document.createElement('div');
-//     card.classList.add('col-6', 'col-md-3'); // 4 columns on medium screens, 2 on small screens
-
-//     card.innerHTML = `
-//       <div class="card">
-//         <img src="${product.image}" alt="${product.name}">
-//         <div class="card-body">
-//           <h5 class="card-title">${product.name}</h5>
-//           <p class="card-text">${product.description}</p>
-//           <p class="card-price">₹${product.price.toFixed(2)}</p> <!-- Changed to ₹ symbol -->
-//         </div>
-        
-//          <button class="buy-now">Add To kart</button>
-//       </div>
-//     `;
-
-//     productGrid.appendChild(card);
-//   });
-// }
-
-// function applyFiltersAndSort() {
-//   let filteredProducts = [...products];
-
-//   // Apply filters
-//   if (filterPriceCheckbox.checked) {
-//     filteredProducts = filteredProducts.filter(product => product.price < 50);
-//   }
-//   if (filterNewCheckbox.checked) {
-//     filteredProducts = filteredProducts.filter(product => product.isNew);
-//   }
-
-//   // Apply sorting
-//   const sortOption = sortSelect.value;
-//   if (sortOption === 'priceLow') {
-//     filteredProducts.sort((a, b) => parseFloat(a.price) - parseFloat(b.price)); // Ensure numeric comparison
-//   } else if (sortOption === 'priceHigh') {
-//     filteredProducts.sort((a, b) => parseFloat(b.price) - parseFloat(a.price)); // Ensure numeric comparison
-//   } else if (sortOption === 'newest') {
-//     filteredProducts.sort((a, b) => b.id - a.id); // Ensure `id` represents recency
-//   }
-
-//   displayProducts(filteredProducts);
-// }
-
-// // Ensure the initial sortSelect value works
-// applyFiltersAndSort();
-
-// // Event listeners for filters and sort
-// sortSelect.addEventListener('change', applyFiltersAndSort);
-// filterPriceCheckbox.addEventListener('change', applyFiltersAndSort);
-// filterNewCheckbox.addEventListener('change', applyFiltersAndSort);
-// Function to display products in the grid
 // Function to display products in the grid
 function displayProducts(productsToDisplay) {
   productGrid.innerHTML = ''; // Clear the grid
@@ -121,12 +65,41 @@ function displayProducts(productsToDisplay) {
           <p class="card-text">${product.description}</p>
           <p class="card-price">₹${product.price.toFixed(2)}</p> <!-- Changed to ₹ symbol -->
         </div>
-        <button class="buy-now">Add To Kart</button>
+        <button class="buy-now" onclick="addToCart(${product.id})">Add To Kart</button>
       </div>
     `;
 
     productGrid.appendChild(card); // Add card to grid
   });
+}
+
+// Function to add products to the cart
+function addToCart(productId) {
+  const product = products.find(p => p.id === productId);
+  if (!cart.includes(product)) {
+    cart.push(product); // Add the product to the cart if not already added
+  }
+  alert(`${product.name} added to your cart!`);
+}
+
+// Function to display products in the cart in a new popup
+function viewCart() {
+  const cartWindow = window.open('', 'Cart', 'width=600,height=400');
+  cartWindow.document.write('<h2>Your Shopping Cart</h2><ul>');
+
+  cart.forEach(product => {
+    cartWindow.document.write(`
+      <li>
+        <strong>${product.name}</strong><br>
+        Price: ₹${product.price.toFixed(2)}<br>
+        Description: ${product.description}
+      </li>
+    `);
+  });
+
+  cartWindow.document.write('</ul>');
+  cartWindow.document.write('<button onclick="window.close()">Close</button>');
+  cartWindow.document.close(); // Close the document stream after writing
 }
 
 // Function to apply filters and sorting
@@ -161,3 +134,11 @@ applyFiltersAndSort();
 sortSelect.addEventListener('change', applyFiltersAndSort);
 filterPriceCheckbox.addEventListener('change', applyFiltersAndSort);
 filterNewCheckbox.addEventListener('change', applyFiltersAndSort);
+
+// Create View Cart button dynamically
+const viewCartButton = document.createElement('button');
+viewCartButton.textContent = 'View Kart';
+viewCartButton.classList.add('btn', 'btn-primary');
+viewCartButton.onclick = viewCart;
+document.body.appendChild(viewCartButton); // Add the button to the body or desired location
+
