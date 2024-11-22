@@ -50,7 +50,10 @@ const products = [
   // { id: 40, name: 'Product 40', description: 'Description for product 40. High-quality item.', price: 105.75, image: 'assets/images/product40.png', isNew: false }
 ];
 
-// Function to display products in the grid
+// Array to hold cart items
+const cart = JSON.parse(localStorage.getItem('cart')) || []; // Retrieve existing cart from localStorage or initialize empty
+
+// Function to display products in the main product grid
 function displayProducts(productsToDisplay) {
   productGrid.innerHTML = ''; // Clear the grid
   productsToDisplay.forEach(product => {
@@ -63,7 +66,7 @@ function displayProducts(productsToDisplay) {
         <div class="card-body">
           <h5 class="card-title">${product.name}</h5>
           <p class="card-text">${product.description}</p>
-          <p class="card-price">₹${product.price.toFixed(2)}</p> <!-- Changed to ₹ symbol -->
+          <p class="card-price">₹${product.price.toFixed(2)}</p>
         </div>
         <button class="buy-now" onclick="addToCart(${product.id})">Add To Kart</button>
       </div>
@@ -73,33 +76,44 @@ function displayProducts(productsToDisplay) {
   });
 }
 
+// Function to display cart items dynamically in a flexbox layout
+function displayCart() {
+  const cartContainer = document.getElementById('cartContainer');
+  cartContainer.innerHTML = ''; // Clear previous cart items
+
+  if (cart.length === 0) {
+    cartContainer.innerHTML = '<p>Your cart is empty!</p>';
+    return;
+  }
+
+  cart.forEach(product => {
+    const cartItem = document.createElement('div');
+    cartItem.classList.add('cart-item'); // Add flexbox design styling
+
+    cartItem.innerHTML = `
+      <div class="cart-card">
+        <img src="${product.image}" alt="${product.name}">
+        <div class="cart-card-body">
+          <h5>${product.name}</h5>
+          <p>Price: ₹${product.price.toFixed(2)}</p>
+          <p>${product.description}</p>
+        </div>
+      </div>
+    `;
+
+    cartContainer.appendChild(cartItem); // Add the cart item to the container
+  });
+}
+
 // Function to add products to the cart
 function addToCart(productId) {
   const product = products.find(p => p.id === productId);
   if (!cart.includes(product)) {
     cart.push(product); // Add the product to the cart if not already added
+    localStorage.setItem('cart', JSON.stringify(cart)); // Save cart to localStorage
+    displayCart(); // Update the cart display
   }
   alert(`${product.name} added to your cart!`);
-}
-
-// Function to display products in the cart in a new popup
-function viewCart() {
-  const cartWindow = window.open('', 'Cart', 'width=600,height=400');
-  cartWindow.document.write('<h2>Your Shopping Cart</h2><ul>');
-
-  cart.forEach(product => {
-    cartWindow.document.write(`
-      <li>
-        <strong>${product.name}</strong><br>
-        Price: ₹${product.price.toFixed(2)}<br>
-        Description: ${product.description}
-      </li>
-    `);
-  });
-
-  cartWindow.document.write('</ul>');
-  cartWindow.document.write('<button onclick="window.close()">Close</button>');
-  cartWindow.document.close(); // Close the document stream after writing
 }
 
 // Function to apply filters and sorting
@@ -130,15 +144,10 @@ function applyFiltersAndSort() {
 // Initial display of products
 applyFiltersAndSort();
 
+// Display cart items on page load
+displayCart();
+
 // Event listeners for filters and sort dropdown
 sortSelect.addEventListener('change', applyFiltersAndSort);
 filterPriceCheckbox.addEventListener('change', applyFiltersAndSort);
 filterNewCheckbox.addEventListener('change', applyFiltersAndSort);
-
-// Create View Cart button dynamically
-const viewCartButton = document.createElement('button');
-viewCartButton.textContent = 'View Kart';
-viewCartButton.classList.add('btn', 'btn-primary');
-viewCartButton.onclick = viewCart;
-document.body.appendChild(viewCartButton); // Add the button to the body or desired location
-
