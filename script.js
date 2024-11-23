@@ -9,7 +9,7 @@ const products = [
   { id: 1, name: 'Product 1', description: 'Description for product 1. High-quality item.', price: 25.99, image: 'assets/images/product1.png', isNew: true },
   { id: 2, name: 'Product 2', description: 'Description for product 2. High-quality item.', price: 45.00, image: 'assets/images/product2.png', isNew: false },
   { id: 3, name: 'Product 3', description: 'Description for product 3. High-quality item.', price: 30.50, image: 'assets/images/product3.png', isNew: true },
-  { id: 4, name: 'Product 4', description: 'Description for product 4. High-quality item.', price: 55.00, image: 'assets/images/product24.png', isNew: true },
+  { id: 4, name: 'Product 4', description: 'Description for product 4. High-quality item.', price: 55.00, image: 'assets/images/product7.png', isNew: true },
   { id: 5, name: 'Product 5', description: 'Description for product 5. High-quality item.', price: 77.99, image: 'assets/images/product20.png', isNew: false },
   { id: 6, name: 'Product 6', description: 'Description for product 6. High-quality item.', price: 36.00, image: 'assets/images/product33.png', isNew: true },
   { id: 7, name: 'Product 7', description: 'Description for product 7. High-quality item.', price: 39.49, image: 'assets/images/product15.png', isNew: true },
@@ -21,7 +21,7 @@ const products = [
   { id: 13, name: 'Product 13', description: 'Description for product 32. High-quality item.', price: 80.00, image: 'assets/images/product32.png', isNew: false },
   { id: 14, name: 'Product 14', description: 'Description for product 10. High-quality item.', price: 34.99, image: 'assets/images/product10.png', isNew: false },
   { id: 15, name: 'Product 15', description: 'Description for product 35. High-quality item.', price: 89.99, image: 'assets/images/product35.png', isNew: true },
-  { id: 16, name: 'Product 16', description: 'Description for product 38. High-quality item.', price: 33.99, image: 'assets/images/product38.png', isNew: false },
+  { id: 16, name: 'QUALITY PEN', description: '', price: 600, image: 'assets/images/product38.png', isNew: false },
   
 ];
 
@@ -51,7 +51,36 @@ function displayProducts(productsToDisplay) {
   });
 }
 
-// Function to display cart items dynamically in a flexbox layout
+// // Function to display cart items dynamically in a flexbox layout
+// function displayCart() {
+//   const cartContainer = document.getElementById('cartContainer');
+//   cartContainer.innerHTML = ''; // Clear previous cart items
+
+//   if (cart.length === 0) {
+//     cartContainer.innerHTML = '<p>Your cart is empty!</p>';
+//     return;
+//   }
+
+//   cart.forEach(product => {
+//     const cartItem = document.createElement('div');
+//     cartItem.classList.add('cart-item'); // Add flexbox design styling
+
+//     cartItem.innerHTML = `
+//       <div class="cart-card">
+//         <img src="${product.image}" alt="${product.name}">
+//         <div class="cart-card-body">
+//           <h5>${product.name}</h5>
+//           <p>Price: ₹${product.price.toFixed(2)}</p>
+//           <p>${product.description}</p>
+//         </div>
+//       </div>
+//     `;
+
+//     cartContainer.appendChild(cartItem); // Add the cart item to the container
+//   });
+// }
+
+// Function to display cart items dynamically in a grid layout
 function displayCart() {
   const cartContainer = document.getElementById('cartContainer');
   cartContainer.innerHTML = ''; // Clear previous cart items
@@ -61,24 +90,34 @@ function displayCart() {
     return;
   }
 
+  // Create a grid container for cart items
+  const grid = document.createElement('div');
+  grid.classList.add('row'); // Use Bootstrap's grid system
+
   cart.forEach(product => {
     const cartItem = document.createElement('div');
-    cartItem.classList.add('cart-item'); // Add flexbox design styling
+    cartItem.classList.add('col-3'); // 4 columns per row (25% width for each item)
 
     cartItem.innerHTML = `
-      <div class="cart-card">
+      <div class="card">
         <img src="${product.image}" alt="${product.name}">
-        <div class="cart-card-body">
-          <h5>${product.name}</h5>
-          <p>Price: ₹${product.price.toFixed(2)}</p>
-          <p>${product.description}</p>
+        <div class="card-body">
+          <h5 class="card-title">${product.name}</h5>
+          <p class="card-price">₹${product.price.toFixed(2)}</p>
+          <p class="card-text">${product.description}</p>
         </div>
       </div>
     `;
 
-    cartContainer.appendChild(cartItem); // Add the cart item to the container
+    grid.appendChild(cartItem); // Add the cart item to the grid
   });
+
+  cartContainer.appendChild(grid); // Add the grid to the container
 }
+
+
+
+
 
 // Function to add products to the cart
 function addToCart(productId) {
