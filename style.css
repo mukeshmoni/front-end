@@ -32,7 +32,7 @@ h1 {
   margin-bottom: 30px;
   display: flex;
   flex-direction: column;
-}
+} 
 
 .card:hover {
   transform: translateY(-10px); /* Slight lift effect */
@@ -49,19 +49,19 @@ h1 {
 }
 
 .card-body {
-  padding: 1rem;
+  padding: 2rem; /* Add more space inside the card */
   text-align: left;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  flex-grow: 1; /* Make sure content stretches to fill available space */
+  flex-grow: 1;
 }
-
 .card-title {
   font-size: 1.25rem;
   color: #007bff; /* Blue color for the title */
   font-weight: bold;
   margin-bottom: 10px;
+  text-align: center; /* Centers the title */
 }
 
 .card-text {
@@ -74,7 +74,8 @@ h1 {
   font-size: 1rem;
   color: #28a745; /* Green color for price */
   font-weight: bold;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
+  text-align: center; /* Centers the price text */
 }
 
 /* Button Styling */

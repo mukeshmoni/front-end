@@ -6,23 +6,22 @@ const productGrid = document.getElementById('productGrid'); // Product grid cont
 
 
 const products = [
-  { id: 1, name: 'Product 1', description: 'Description for product 1. High-quality item.', price: 25.99, image: 'assets/images/product1.png', isNew: true },
-  { id: 2, name: 'Product 2', description: 'Description for product 2. High-quality item.', price: 45.00, image: 'assets/images/product2.png', isNew: false },
-  { id: 3, name: 'Product 3', description: 'Description for product 3. High-quality item.', price: 30.50, image: 'assets/images/product3.png', isNew: true },
-  { id: 4, name: 'Product 4', description: 'Description for product 4. High-quality item.', price: 55.00, image: 'assets/images/product7.png', isNew: true },
-  { id: 5, name: 'Product 5', description: 'Description for product 5. High-quality item.', price: 77.99, image: 'assets/images/product20.png', isNew: false },
-  { id: 6, name: 'Product 6', description: 'Description for product 6. High-quality item.', price: 36.00, image: 'assets/images/product33.png', isNew: true },
-  { id: 7, name: 'Product 7', description: 'Description for product 7. High-quality item.', price: 39.49, image: 'assets/images/product15.png', isNew: true },
-  { id: 8, name: 'Product 8', description: 'Description for product 8. High-quality item.', price: 50.00, image: 'assets/images/product16.png', isNew: false },
-  { id: 9, name: 'Product 9', description: 'Description for product 9. High-quality item.', price: 18.75, image: 'assets/images/product24.png', isNew: false },
-  { id: 10, name: 'Product 10', description: 'Description for product 10. High-quality item.', price: 72.45, image: 'assets/images/product28.png', isNew: false },
-  { id: 11, name: 'Product 11', description: 'Description for product 11. High-quality item.', price: 27.50, image: 'assets/images/product21.png', isNew: true },
-  { id: 12, name: 'Product 12', description: 'Description for product 31. High-quality item.', price: 61.75, image: 'assets/images/product31.png', isNew: true },
-  { id: 13, name: 'Product 13', description: 'Description for product 32. High-quality item.', price: 80.00, image: 'assets/images/product32.png', isNew: false },
-  { id: 14, name: 'Product 14', description: 'Description for product 10. High-quality item.', price: 34.99, image: 'assets/images/product10.png', isNew: false },
-  { id: 15, name: 'Product 15', description: 'Description for product 35. High-quality item.', price: 89.99, image: 'assets/images/product35.png', isNew: true },
+  { id: 1, name: 'Product 1', description: '', price: 25.99, image: 'assets/images/product1.png', isNew: true },
+  { id: 2, name: 'Product 2', description: '', price: 45.00, image: 'assets/images/product2.png', isNew: false },
+  { id: 3, name: 'Product 3', description: '', price: 30.50, image: 'assets/images/product3.png', isNew: true },
+  { id: 4, name: 'Product 4', description: '', price: 55.00, image: 'assets/images/product7.png', isNew: true },
+  { id: 9, name: 'Product 9', description: '', price: 18.75, image: 'assets/images/product24.png', isNew: false },
+  { id: 10, name: 'Product 10', description: '', price: 72.45, image: 'assets/images/product28.png', isNew: false },
+  { id: 11, name: 'Product 11', description: '', price: 27.50, image: 'assets/images/product21.png', isNew: true },
+  { id: 12, name: 'Product 12', description: '', price: 61.75, image: 'assets/images/product31.png', isNew: true },
+  { id: 13, name: 'Product 13', description: '', price: 80.00, image: 'assets/images/product32.png', isNew: false },
+  { id: 14, name: 'Product 14', description: '', price: 34.99, image: 'assets/images/product10.png', isNew: false },
+  { id: 15, name: 'Product 15', description: '', price: 89.99, image: 'assets/images/product35.png', isNew: true },
   { id: 16, name: 'QUALITY PEN', description: '', price: 600, image: 'assets/images/product38.png', isNew: false },
-  
+  { id: 5, name: 'Product 5', description: '', price: 77.99, image: 'assets/images/product20.png', isNew: false },
+   { id: 8, name: 'Product 8', description: '', price: 50.00, image: 'assets/images/product16.png', isNew: false },
+  { id: 7, name: 'Product 7', description: '.', price: 39.49, image: 'assets/images/product15.png', isNew: true },
+  { id: 6, name: 'Product 6', description: '', price: 36.00, image: 'assets/images/product33.png', isNew: true },
 ];
 
 // Array to hold cart items
