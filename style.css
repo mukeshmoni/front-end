@@ -56,6 +56,7 @@ h1 {
   justify-content: space-between;
   flex-grow: 1;
 }
+
 .card-title {
   font-size: 1.25rem;
   color: #007bff; /* Blue color for the title */
@@ -130,9 +131,24 @@ h1 {
   .buy-now {
     bottom: 10px;
   }
+
+  /* Adjust card widths for mobile */
+  .col-1 {
+    flex: 1 1 calc(100% - 20px); /* 1 column on small screens */
+    margin-bottom: 20px;
+  }
+
+  .col-md-3 {
+    flex: 1 1 calc(50% - 10px); /* 2 columns on medium screens */
+  }
 }
 
-
+@media (min-width: 768px) {
+  /* Ensures 4 columns on medium to larger screens */
+  .col-md-3 {
+    flex: 1 1 calc(25% - 16px);
+  }
+}
 
 /* Cart Container */
 #cartContainer {

@@ -24,8 +24,116 @@ const products = [
   { id: 6, name: 'Product 6', description: '', price: 36.00, image: 'assets/images/product33.png', isNew: true },
 ];
 
-// Array to hold cart items
-const cart = JSON.parse(localStorage.getItem('cart')) || []; // Retrieve existing cart from localStorage or initialize empty
+// // Array to hold cart items
+// const cart = JSON.parse(localStorage.getItem('cart')) || []; // Retrieve existing cart from localStorage or initialize empty
+
+// // Function to display products in the main product grid
+// function displayProducts(productsToDisplay) {
+//   productGrid.innerHTML = ''; // Clear the grid
+//   productsToDisplay.forEach(product => {
+//     const card = document.createElement('div');
+//     card.classList.add('col-1', 'col-md-1', 'col-lg-3'); // 4 columns on medium screens, 2 on small screens
+
+//     card.innerHTML = `
+//       <div class="card">
+//         <img src="${product.image}" alt="${product.name}">
+//         <div class="card-body">
+//           <h5 class="card-title">${product.name}</h5>
+//           <p class="card-text">${product.description}</p>
+//           <p class="card-price">₹${product.price.toFixed(2)}</p>
+//         </div>
+//         <button class="buy-now" onclick="addToCart(${product.id})">Add To Kart</button>
+//       </div>
+//     `;
+
+//     productGrid.appendChild(card); // Add card to grid
+//   });
+// }
+// // Function to display cart items dynamically in a grid layout
+// function displayCart() {
+//   const cartContainer = document.getElementById('cartContainer');
+//   cartContainer.innerHTML = ''; // Clear previous cart items
+
+//   if (cart.length === 0) {
+//     cartContainer.innerHTML = '<p>Your cart is empty!</p>';
+//     return;
+//   }
+
+//   // Create a grid container for cart items
+//    const grid = document.createElement('div');
+//    grid.classList.add('row'); // Use Bootstrap's grid system
+
+//    cart.forEach(product => {
+//      const cartItem = document.createElement('div');
+//      cartItem.classList.add('col-3'); // 4 columns per row (25% width for each item)
+
+//    cartItem.innerHTML = `
+//        <div class="card">
+//          <img src="${product.image}" alt="${product.name}">
+//          <div class="card-body">
+//            <h5 class="card-title">${product.name}</h5>
+//            <p class="card-price">₹${product.price.toFixed(2)}</p>
+//            <p class="card-text">${product.description}</p>
+//          </div>
+//        </div>
+//      `;
+
+//      grid.appendChild(cartItem); // Add the cart item to the grid
+//    });
+
+//    cartContainer.appendChild(grid); // Add the grid to the container
+//  }
+
+
+
+
+
+// // Function to add products to the cart
+// // function addToCart(productId) {
+// //   const product = products.find(p => p.id === productId);
+// //   if (!cart.includes(product)) {
+// //     cart.push(product); // Add the product to the cart if not already added
+// //     localStorage.setItem('cart', JSON.stringify(cart)); // Save cart to localStorage
+// //     displayCart(); // Update the cart display
+// //   }
+// //   alert(`${product.name} added to your cart!`);
+// // }
+
+// // Function to apply filters and sorting
+// function applyFiltersAndSort() {
+//   let filteredProducts = [...products]; // Copy the products array
+
+//   // Apply filters
+//   if (filterPriceCheckbox.checked) {
+//     filteredProducts = filteredProducts.filter(product => product.price < 50);
+//   }
+//   if (filterNewCheckbox.checked) {
+//     filteredProducts = filteredProducts.filter(product => product.isNew);
+//   }
+
+//   // Apply sorting
+//   const sortOption = sortSelect.value;
+//   if (sortOption === 'priceLow') {
+//     filteredProducts.sort((a, b) => parseFloat(a.price) - parseFloat(b.price)); // Low to high
+//   } else if (sortOption === 'priceHigh') {
+//     filteredProducts.sort((a, b) => parseFloat(b.price) - parseFloat(a.price)); // High to low
+//   } else if (sortOption === 'newest') {
+//     filteredProducts.sort((a, b) => b.id - a.id); // Newest first
+//   }
+
+//   displayProducts(filteredProducts); // Display the filtered and sorted products
+// }
+
+// // Initial display of products
+// applyFiltersAndSort();
+
+// // Display cart items on page load
+// displayCart();
+
+// // Event listeners for filters and sort dropdown
+// sortSelect.addEventListener('change', applyFiltersAndSort);
+// filterPriceCheckbox.addEventListener('change', applyFiltersAndSort);
+// filterNewCheckbox.addEventListener('change', applyFiltersAndSort);
 
 // Function to display products in the main product grid
 function displayProducts(productsToDisplay) {
@@ -41,8 +149,9 @@ function displayProducts(productsToDisplay) {
           <h5 class="card-title">${product.name}</h5>
           <p class="card-text">${product.description}</p>
           <p class="card-price">₹${product.price.toFixed(2)}</p>
+          <!-- Buy Now Button -->
+          <button class="buy-now" onclick="buyNow(${product.id})">Buy Now</button>
         </div>
-        <button class="buy-now" onclick="addToCart(${product.id})">Add To Kart</button>
       </div>
     `;
 
@@ -50,83 +159,11 @@ function displayProducts(productsToDisplay) {
   });
 }
 
-// // Function to display cart items dynamically in a flexbox layout
-// function displayCart() {
-//   const cartContainer = document.getElementById('cartContainer');
-//   cartContainer.innerHTML = ''; // Clear previous cart items
-
-//   if (cart.length === 0) {
-//     cartContainer.innerHTML = '<p>Your cart is empty!</p>';
-//     return;
-//   }
-
-//   cart.forEach(product => {
-//     const cartItem = document.createElement('div');
-//     cartItem.classList.add('cart-item'); // Add flexbox design styling
-
-//     cartItem.innerHTML = `
-//       <div class="cart-card">
-//         <img src="${product.image}" alt="${product.name}">
-//         <div class="cart-card-body">
-//           <h5>${product.name}</h5>
-//           <p>Price: ₹${product.price.toFixed(2)}</p>
-//           <p>${product.description}</p>
-//         </div>
-//       </div>
-//     `;
-
-//     cartContainer.appendChild(cartItem); // Add the cart item to the container
-//   });
-// }
-
-// Function to display cart items dynamically in a grid layout
-function displayCart() {
-  const cartContainer = document.getElementById('cartContainer');
-  cartContainer.innerHTML = ''; // Clear previous cart items
-
-  if (cart.length === 0) {
-    cartContainer.innerHTML = '<p>Your cart is empty!</p>';
-    return;
-  }
-
-  // Create a grid container for cart items
-  const grid = document.createElement('div');
-  grid.classList.add('row'); // Use Bootstrap's grid system
-
-  cart.forEach(product => {
-    const cartItem = document.createElement('div');
-    cartItem.classList.add('col-3'); // 4 columns per row (25% width for each item)
-
-    cartItem.innerHTML = `
-      <div class="card">
-        <img src="${product.image}" alt="${product.name}">
-        <div class="card-body">
-          <h5 class="card-title">${product.name}</h5>
-          <p class="card-price">₹${product.price.toFixed(2)}</p>
-          <p class="card-text">${product.description}</p>
-        </div>
-      </div>
-    `;
-
-    grid.appendChild(cartItem); // Add the cart item to the grid
-  });
-
-  cartContainer.appendChild(grid); // Add the grid to the container
-}
-
-
-
-
-
-// Function to add products to the cart
-function addToCart(productId) {
-  const product = products.find(p => p.id === productId);
-  if (!cart.includes(product)) {
-    cart.push(product); // Add the product to the cart if not already added
-    localStorage.setItem('cart', JSON.stringify(cart)); // Save cart to localStorage
-    displayCart(); // Update the cart display
-  }
-  alert(`${product.name} added to your cart!`);
+// Function to handle Buy Now button click
+function buyNow(productId) {
+  // You can pass the productId or other details to the form.html page using query parameters or localStorage
+  localStorage.setItem('selectedProductId', productId); // Store the selected product's ID in localStorage
+  window.location.href = 'form.html'; // Navigate to form.html page
 }
 
 // Function to apply filters and sorting
@@ -156,9 +193,6 @@ function applyFiltersAndSort() {
 
 // Initial display of products
 applyFiltersAndSort();
-
-// Display cart items on page load
-displayCart();
 
 // Event listeners for filters and sort dropdown
 sortSelect.addEventListener('change', applyFiltersAndSort);

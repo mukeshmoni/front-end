@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SBI Connect Payment Gateway</title>
+    <!-- Link to external CSS file -->
+    <link href="form.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<form id="sbi-connect-form">
+    <h2>SBI Connect Payment Gateway</h2>
+    
+    <!-- Category Section -->
+    <label for="category">Category <span class="mandatory">*</span></label>
+    <select id="category" name="category" required onchange="handleCategoryChange()">
+        <option value="">-- Select Category --</option>
+        <option value="education">Education</option>
+        <option value="shopping">Shopping</option>
+        <option value="services">Services</option>
+    </select>
+
+    <label for="product-name">Type of Product <span class="mandatory">*</span></label>
+    <select id="product-name" name="product-name" required>
+        <option value="">-- Select Product --</option>
+    </select>
+
+    <h3>Personal Details</h3>
+    <label for="user-name">Name of the User <span class="mandatory">*</span></label>
+    <input type="text" id="user-name" name="user-name" required pattern="[A-Za-z\s]+" title="Only alphabets are allowed">
+
+    <label for="contact-number">Contact Number <span class="mandatory">*</span></label>
+    <input type="text" id="contact-number" name="contact-number" required pattern="\d{10}" title="Enter a valid 10-digit contact number">
+
+    <label for="mail-id">Mail ID <span class="mandatory">*</span></label>
+    <input type="email" id="mail-id" name="mail-id" required>
+
+    <label for="institution-name">Institution Name <span class="mandatory">*</span></label>
+    <input type="text" id="institution-name" name="institution-name" required pattern="[A-Za-z\s]+" title="Only alphabets are allowed">
+
+    <label for="course-name">Name of the Course <span class="mandatory">*</span></label>
+    <input type="text" id="course-name" name="course-name" required pattern="[A-Za-z0-9\s]+" title="Only alphanumeric characters are allowed">
+
+    <!-- Product List -->
+<h2> product items
+</h2>
+    <div class="item-row">
+        <label for="item1">Handicraft Bag</label>
+        <input type="number" class="quantity-input" min="0" value="0" onchange="updateTotal()">
+        <input type="text" class="cost-input readonly-input" value="180" readonly>
+    </div>
+    <div class="item-row">
+        <label for="item2">T-shirt (Large Size-43cm) </label>
+        <input type="number" class="quantity-input" min="0" value="0" onchange="updateTotal()">
+        <input type="text" class="cost-input readonly-input" value="520" readonly>
+    </div>
+    <div class="item-row">
+        <label for="item3">T-shirt (XL Size-44cm) </label>
+        <input type="number" class="quantity-input" min="0" value="0" onchange="updateTotal()">
+        <input type="text" class="cost-input readonly-input" value="520" readonly>
+    </div> 
+
+    <div class="item-row">
+        <label for="item4">T-shirt (XXL Size-46cm) </label>
+        <input type="number" class="quantity-input" min="0" value="0" onchange="updateTotal()">
+        <input type="text" class="cost-input readonly-input" value="520" readonly>
+    </div>
+    <div class="item-row">
+        <label for="item5">Parker Pen</label>
+        <input type="number" class="quantity-input" min="0" value="0" onchange="updateTotal()">
+        <input type="text" class="cost-input readonly-input" value="800" readonly>
+    </div>
+    <div class="item-row">
+        <label for="item6">Woody Flair</label>
+        <input type="number" class="quantity-input" min="0" value="0" onchange="updateTotal()">
+        <input type="text" class="cost-input readonly-input" value="15" readonly>
+    </div> 
+
+<div class="item-row">
+        <label for="item7">Logo Magnet</label>
+        <input type="number" class="quantity-input" min="0" value="0" onchange="updateTotal()">
+        <input type="text" class="cost-input readonly-input" value="75" readonly>
+    </div>
+    <div class="item-row">
+        <label for="item8">Jute Bag</label>
+        <input type="number" class="quantity-input" min="0" value="0" onchange="updateTotal()">
+        <input type="text" class="cost-input readonly-input" value="160" readonly>
+    </div>
+    <div class="item-row">
+        <label for="item9">Ceramic Mug</label>
+        <input type="number" class="quantity-input" min="0" value="0" onchange="updateTotal()">
+        <input type="text" class="cost-input readonly-input" value="130" readonly>
+    </div> 
+    <div class="item-row">
+        <label for="item10">3D cyrstal</label>
+        <input type="number" class="quantity-input" min="0" value="0" onchange="updateTotal()">
+        <input type="text" class="cost-input readonly-input" value="850" readonly>
+    </div>
+    <div class="item-row">
+        <label for="item11">Alaram Clock</label>
+        <input type="number" class="quantity-input" min="0" value="0" onchange="updateTotal()">
+        <input type="text" class="cost-input readonly-input" value="500" readonly>
+    </div>
+    <div class="item-row">
+        <label for="item12">Table Clock</label>
+        <input type="number" class="quantity-input" min="0" value="0" onchange="updateTotal()">
+        <input type="text" class="cost-input readonly-input" value="430" readonly>
+        </div>
+        <div class="item-row">
+            <label for="item13">Shawl</label>
+            <input type="number" class="quantity-input" min="0" value="0" onchange="updateTotal()">
+            <input type="text" class="cost-input readonly-input" value="150" readonly>
+            </div>
+    <div class="item-row">
+        <label for="item14">Small Round Momento</label>
+        <input type="number" class="quantity-input" min="0" value="0" onchange="updateTotal()">
+        <input type="text" class="cost-input readonly-input" value="600" readonly>
+    </div>
+    <div class="item-row">
+        <label for="item15"> Quality Pen (MOU)</label>
+        <input type="number" class="quantity-input" min="0" value="0" onchange="updateTotal()">
+        <input type="text" class="cost-input readonly-input" value="600" readonly>
+    </div> 
+
+
+
+
+
+
+    <!-- (Product rows) -->
+
+    <div id="total-section">
+        Total Amount: <input type="text" id="total-amount" name="total-amount" class="readonly-input" value="0" readonly>
+    </div>
+
+    <!-- Mode of Payment -->
+    <h3>Mode of Payment</h3>
+    <div>
+        <label><input type="radio" name="payment-mode" value="gpay" required> GPAY</label>
+        <label><input type="radio" name="payment-mode" value="paytm"> PAYTM</label>
+        <label><input type="radio" name="payment-mode" value="sbi-connect"> SBI Connect</label>
+        <label><input type="radio" name="payment-mode" value="others"> OTHERS</label>
+    </div>
+
+    <!-- Pay Now button container -->
+    <div class="paynow-container">
+        <button type="button" class="btn-paynow" onclick="payNow()">Pay Now</button>
+    </div>
+
+    <label for="transaction-number">Transaction Number <span class="mandatory">*</span></label>
+    <input type="text" id="transaction-number" name="transaction-number" required pattern="[A-Za-z0-9]+" title="Alphanumeric only">
+
+    <label for="remarks">Remarks</label>
+    <textarea id="remarks" name="remarks" rows="4" placeholder="Enter your remarks here"></textarea>
+
+    <p>Acknowledgement: Thanks for the payment through SBI Collect.</p>
+
+    <div style="display: flex; justify-content: space-between;">
+        <button type="button" class="btn-back" onclick="goBack()">Back</button>
+        <button type="reset" class="btn-reset">Reset</button>
+        <button type="submit" class="btn-submit">Submit</button>
+    </div>
+</form>
+
+<!-- Link to external JavaScript file -->
+<script src="form.js"></script>
+</body>
+</html>
