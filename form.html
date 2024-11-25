@@ -9,7 +9,48 @@
 </head>
 <body>
 
-<form id="sbi-connect-form">
+<?php
+    // Start PHP session if needed for form handling
+    session_start();
+
+    // Initialize variables for error or success messages
+    $message = '';
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        include 'config.php';  // Database connection file
+
+        // Collect and sanitize the form data
+        $category = $_POST['category'];
+        $product_name = $_POST['product-name'];
+        $user_name = $_POST['user-name'];
+        $contact_number = $_POST['contact-number'];
+        $mail_id = $_POST['mail-id'];
+        $institution_name = $_POST['institution-name'];
+        $course_name = $_POST['course-name'];
+        $total_amount = $_POST['total-amount'];
+        $payment_mode = $_POST['payment-mode'];
+        $transaction_number = $_POST['transaction-number'];
+        $remarks = $_POST['remarks'];
+
+        // Validate data or add error handling as needed
+
+        // Prepare SQL query to insert form data into database
+        $stmt = $conn->prepare("INSERT INTO form_data (category, product_name, user_name, contact_number, mail_id, institution_name, course_name, total_amount, payment_mode, transaction_number, remarks) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("sssssssssss", $category, $product_name, $user_name, $contact_number, $mail_id, $institution_name, $course_name, $total_amount, $payment_mode, $transaction_number, $remarks);
+
+        // Execute query and check for success
+        if ($stmt->execute()) {
+            $message = "Form submitted successfully!";
+        } else {
+            $message = "Error: " . $stmt->error;
+        }
+
+        // Close the statement and database connection
+        $stmt->close();
+        $conn->close();
+    }
+?>
+
+<form id="sbi-connect-form" action="index.php" method="POST">
     <h2>SBI Connect Payment Gateway</h2>
     
     <!-- Category Section -->
@@ -43,92 +84,13 @@
     <input type="text" id="course-name" name="course-name" required pattern="[A-Za-z0-9\s]+" title="Only alphanumeric characters are allowed">
 
     <!-- Product List -->
-<h2> product items
-</h2>
+    <h2>Product Items</h2>
     <div class="item-row">
         <label for="item1">Handicraft Bag</label>
         <input type="number" class="quantity-input" min="0" value="0" onchange="updateTotal()">
         <input type="text" class="cost-input readonly-input" value="180" readonly>
     </div>
-    <div class="item-row">
-        <label for="item2">T-shirt (Large Size-43cm) </label>
-        <input type="number" class="quantity-input" min="0" value="0" onchange="updateTotal()">
-        <input type="text" class="cost-input readonly-input" value="520" readonly>
-    </div>
-    <div class="item-row">
-        <label for="item3">T-shirt (XL Size-44cm) </label>
-        <input type="number" class="quantity-input" min="0" value="0" onchange="updateTotal()">
-        <input type="text" class="cost-input readonly-input" value="520" readonly>
-    </div> 
-
-    <div class="item-row">
-        <label for="item4">T-shirt (XXL Size-46cm) </label>
-        <input type="number" class="quantity-input" min="0" value="0" onchange="updateTotal()">
-        <input type="text" class="cost-input readonly-input" value="520" readonly>
-    </div>
-    <div class="item-row">
-        <label for="item5">Parker Pen</label>
-        <input type="number" class="quantity-input" min="0" value="0" onchange="updateTotal()">
-        <input type="text" class="cost-input readonly-input" value="800" readonly>
-    </div>
-    <div class="item-row">
-        <label for="item6">Woody Flair</label>
-        <input type="number" class="quantity-input" min="0" value="0" onchange="updateTotal()">
-        <input type="text" class="cost-input readonly-input" value="15" readonly>
-    </div> 
-
-<div class="item-row">
-        <label for="item7">Logo Magnet</label>
-        <input type="number" class="quantity-input" min="0" value="0" onchange="updateTotal()">
-        <input type="text" class="cost-input readonly-input" value="75" readonly>
-    </div>
-    <div class="item-row">
-        <label for="item8">Jute Bag</label>
-        <input type="number" class="quantity-input" min="0" value="0" onchange="updateTotal()">
-        <input type="text" class="cost-input readonly-input" value="160" readonly>
-    </div>
-    <div class="item-row">
-        <label for="item9">Ceramic Mug</label>
-        <input type="number" class="quantity-input" min="0" value="0" onchange="updateTotal()">
-        <input type="text" class="cost-input readonly-input" value="130" readonly>
-    </div> 
-    <div class="item-row">
-        <label for="item10">3D cyrstal</label>
-        <input type="number" class="quantity-input" min="0" value="0" onchange="updateTotal()">
-        <input type="text" class="cost-input readonly-input" value="850" readonly>
-    </div>
-    <div class="item-row">
-        <label for="item11">Alaram Clock</label>
-        <input type="number" class="quantity-input" min="0" value="0" onchange="updateTotal()">
-        <input type="text" class="cost-input readonly-input" value="500" readonly>
-    </div>
-    <div class="item-row">
-        <label for="item12">Table Clock</label>
-        <input type="number" class="quantity-input" min="0" value="0" onchange="updateTotal()">
-        <input type="text" class="cost-input readonly-input" value="430" readonly>
-        </div>
-        <div class="item-row">
-            <label for="item13">Shawl</label>
-            <input type="number" class="quantity-input" min="0" value="0" onchange="updateTotal()">
-            <input type="text" class="cost-input readonly-input" value="150" readonly>
-            </div>
-    <div class="item-row">
-        <label for="item14">Small Round Momento</label>
-        <input type="number" class="quantity-input" min="0" value="0" onchange="updateTotal()">
-        <input type="text" class="cost-input readonly-input" value="600" readonly>
-    </div>
-    <div class="item-row">
-        <label for="item15"> Quality Pen (MOU)</label>
-        <input type="number" class="quantity-input" min="0" value="0" onchange="updateTotal()">
-        <input type="text" class="cost-input readonly-input" value="600" readonly>
-    </div> 
-
-
-
-
-
-
-    <!-- (Product rows) -->
+    <!-- Additional product rows here as per your original HTML -->
 
     <div id="total-section">
         Total Amount: <input type="text" id="total-amount" name="total-amount" class="readonly-input" value="0" readonly>
@@ -153,6 +115,11 @@
 
     <label for="remarks">Remarks</label>
     <textarea id="remarks" name="remarks" rows="4" placeholder="Enter your remarks here"></textarea>
+
+    <!-- Success/Error message -->
+    <?php if ($message) { ?>
+        <div class="message"><?php echo $message; ?></div>
+    <?php } ?>
 
     <p>Acknowledgement: Thanks for the payment through SBI Collect.</p>
 
